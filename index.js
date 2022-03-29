@@ -49,6 +49,10 @@ app.post(URI, async (req, res) => {
   res.sendStatus(200)
 })
 
+app.get('/', async (_req, res) => {
+  res.send('Server OK')
+})
+
 app.listen(process.env.PORT || 5000, async () => {
   console.log('Server started', process.env.PORT || 5000)
   await init()
