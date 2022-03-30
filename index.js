@@ -53,6 +53,7 @@ app.post(URI, async (req, res) => {
 })
 
 app.get('/', async (_req, res) => {
+	await CommonController.getPriceTest()
   res.send('Server OK')
 })
 
