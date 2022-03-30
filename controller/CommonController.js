@@ -12,8 +12,16 @@ class CommonController {
     const interestedResponse = responsePrice.data.filter((symbol) =>
       InterestedSymbols.MOSTLY.includes(symbol.symbol),
     )
+    for (let i = 0; i < interestedResponse.length; i++) {
+      const klines = await axios.get(
+        `https://api.binance.com/api/v1/klines?symbol=${
+          interestedResponse[i].symbol
+        }&interval=1h&startTime=${new Date().getTime() - 3600000}&endTime=${new Date().getTime()}`,
+      )
+      interestedResponse[i].dataKLine = klines.data[0]
+    }
     let newMessage = ''
-    newMessage += `Cap nhat gia coin dang quan tam(24h) (${dayjs().format(
+    newMessage += `Cap nhat gia coin dang quan tam (1h) (${dayjs().format(
       'YYYY-MM-DD HH:mm:ss',
     )}):\n`
     for (let i = 0; i < interestedResponse.length; i++) {
@@ -26,13 +34,13 @@ class CommonController {
       }: ${interestedResponse[i].priceChangePercent.slice(
         0,
         -1,
-      )}%. \xF0\x9F\x94\xBC ${interestedResponse[i].highPrice.slice(
+      )}%. \xF0\x9F\x94\xBC ${interestedResponse[i].dataKLine[2].slice(
         0,
         -3,
-      )}  \xF0\x9F\x94\xBB ${interestedResponse[i].lowPrice.slice(
+      )}  \xF0\x9F\x94\xBB ${interestedResponse[i].dataKLine[3].slice(
         0,
         -3,
-      )}. \xF0\x9F\x9A\x80 ${interestedResponse[i].openPrice.slice(0, -3)}\n`
+      )}. \xF0\x9F\x9A\x80 ${interestedResponse[i].dataKLine[1].slice(0, -3)}\n`
     }
     const responseSender = await axios.get(
       `${TELEGRAM_API}/sendMessage?chat_id=${message.chat.id}&text=${newMessage}`,
