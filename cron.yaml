@@ -1,0 +1,6 @@
+cron:
+  - description: 'Get Price Invest'
+    url: /cron/price
+    target: default
+    schedule: every 58 mins
+    timezone: Asia/Ho_Chi_Minh
