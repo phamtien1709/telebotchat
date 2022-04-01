@@ -39,6 +39,9 @@ app.post(URI, async (req, res) => {
   if (message.text === TrainingKeys.COMMON_RELAX_CHECK) {
     await CommonController.getPrice(message)
   }
+  if (message.text.includes(TrainingKeys.COMMON_PRICE_SPEC)) {
+    await CommonController.getPriceBySymbol(message)
+  }
   if (message.text === TrainingKeys.COMMON_STOP_PRICE_1H) {
     if (job) {
       job.cancel()
@@ -53,7 +56,7 @@ app.post(URI, async (req, res) => {
 })
 
 app.get('/', async (_req, res) => {
-	await CommonController.getPriceTest()
+  await CommonController.getPriceTest()
   res.send('Server OK')
 })
 
