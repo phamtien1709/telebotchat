@@ -23,36 +23,43 @@ const init = async () => {
 
 app.post(URI, async (req, res) => {
   const { message } = req.body
-  if (message.text === TrainingKeys.COMMON_START) {
-    const response = await axios.get(
-      `${TELEGRAM_API}/sendMessage?chat_id=${message.chat.id}&text=${message.text}`,
-    )
-  }
-  if (message.text === TrainingKeys.COMMON_PRICE) {
-    await CommonController.getPrice(message)
-  }
-  if (message.text === TrainingKeys.COMMON_PRICE_1H) {
-    job = schedule.scheduleJob('30 * * * * ', async () => {
-      await CommonController.getPrice(message)
-    })
-  }
-  if (message.text === TrainingKeys.COMMON_RELAX_CHECK) {
-    await CommonController.getPrice(message)
-  }
-  if (message.text.includes(TrainingKeys.COMMON_PRICE_SPEC)) {
-    await CommonController.getPriceBySymbol(message)
-  }
-  if (message.text === TrainingKeys.COMMON_STOP_PRICE_1H) {
-    if (job) {
-      job.cancel()
+  try {
+    if (message !== undefined) {
+      if (message.text === TrainingKeys.COMMON_START) {
+        const response = await axios.get(
+          `${TELEGRAM_API}/sendMessage?chat_id=${message.chat.id}&text=${message.text}`,
+        )
+      }
+      if (message.text === TrainingKeys.COMMON_PRICE) {
+        await CommonController.getPrice(message)
+      }
+      if (message.text === TrainingKeys.COMMON_PRICE_1H) {
+        job = schedule.scheduleJob('30 * * * * ', async () => {
+          await CommonController.getPrice(message)
+        })
+      }
+      if (message.text === TrainingKeys.COMMON_RELAX_CHECK) {
+        await CommonController.getPrice(message)
+      }
+      if (message.text.includes(TrainingKeys.COMMON_PRICE_SPEC)) {
+        await CommonController.getPriceBySymbol(message)
+      }
+      if (message.text === TrainingKeys.COMMON_STOP_PRICE_1H) {
+        if (job) {
+          job.cancel()
+        }
+      }
+      if (message.text === TrainingKeys.COMMON_STOP) {
+        const response = await axios.get(
+          `${TELEGRAM_API}/sendMessage?chat_id=${message.chat.id}&text=${message.text}`,
+        )
+      }
     }
+    res.sendStatus(200)
+  } catch (error) {
+		console.log('ERRORORO');
+    res.sendStatus(200)
   }
-  if (message.text === TrainingKeys.COMMON_STOP) {
-    const response = await axios.get(
-      `${TELEGRAM_API}/sendMessage?chat_id=${message.chat.id}&text=${message.text}`,
-    )
-  }
-  res.sendStatus(200)
 })
 
 app.get('/', async (_req, res) => {
