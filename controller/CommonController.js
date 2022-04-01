@@ -34,10 +34,10 @@ class CommonController {
       }: ${interestedResponse[i].priceChangePercent.slice(
         0,
         -1,
-      )}%. \xF0\x9F\x94\xBC ${interestedResponse[i].dataKLine[2].slice(
+      )}%. \xF0\x9F\x94\xBC ${interestedResponse[i].highPrice.slice(
         0,
         -3,
-      )}  \xF0\x9F\x94\xBB ${interestedResponse[i].dataKLine[3].slice(
+      )}  \xF0\x9F\x94\xBB ${interestedResponse[i].lowPrice.slice(
         0,
         -3,
       )}. \xF0\x9F\x9A\x80 ${interestedResponse[i].dataKLine[1].slice(0, -3)}\n`
@@ -73,10 +73,10 @@ class CommonController {
       }: ${interestedResponse[i].priceChangePercent.slice(
         0,
         -1,
-      )}%. \xF0\x9F\x94\xBC ${interestedResponse[i].dataKLine[2].slice(
+      )}%. \xF0\x9F\x94\xBC ${interestedResponse[i].highPrice.slice(
         0,
         -3,
-      )}  \xF0\x9F\x94\xBB ${interestedResponse[i].dataKLine[3].slice(
+      )}  \xF0\x9F\x94\xBB ${interestedResponse[i].lowPrice.slice(
         0,
         -3,
       )}. \xF0\x9F\x9A\x80 ${interestedResponse[i].dataKLine[1].slice(0, -3)}\n`
