@@ -2,6 +2,7 @@ require('dotenv').config()
 const axios = require('axios')
 const dayjs = require('dayjs')
 const InterestedSymbols = require('../lib/interestedSymbols')
+const trainingKeys = require('../lib/trainingKeys')
 
 const { TELEGRAM_TOKEN, CHAT_ID } = process.env
 const TELEGRAM_API = `https://api.telegram.org/bot${TELEGRAM_TOKEN}`
@@ -86,11 +87,12 @@ class CommonController {
     )
   }
   async getPriceBySymbol(message) {
-    const responsePrice = await axios.get(
+    const responsePrices = await axios.get(
       `https://api.binance.com/api/v3/ticker/24hr?symbol=${message.text
-        .replace('/price_spec', '')
+        .replace(trainingKeys.COMMON_PRICE_SPEC, '')
         .toUpperCase()}`,
     )
+    let responsePrice = responsePrices.data
     const klines = await axios.get(
       `https://api.binance.com/api/v1/klines?symbol=${responsePrice.symbol}&interval=1h&startTime=${
         new Date().getTime() - 3600000
@@ -99,7 +101,7 @@ class CommonController {
     responsePrice.dataKLine = klines.data[0]
     let newMessage = ''
     newMessage += `Cap nhat gia coin ${message.text
-      .replace('/price_spec', '')
+      .replace(trainingKeys.COMMON_PRICE_SPEC, '')
       .toUpperCase()} (1h) (${dayjs().format('YYYY-MM-DD HH:mm:ss')}):\n`
     newMessage += `\xF0\x9F\x92\xB0 ${
       responsePrice.symbol
