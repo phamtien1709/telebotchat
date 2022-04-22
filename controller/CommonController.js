@@ -22,7 +22,7 @@ class CommonController {
       interestedResponse[i].dataKLine = klines.data[0]
     }
     let newMessage = ''
-    newMessage += `Cap nhat gia coin dang quan tam (1h) (${dayjs().format(
+    newMessage += `Cap nhat gia coin dang quan tam (1h) (${dayjs().add(7, 'h').format(
       'YYYY-MM-DD HH:mm:ss',
     )}):\n`
     for (let i = 0; i < interestedResponse.length; i++) {
@@ -61,7 +61,7 @@ class CommonController {
       interestedResponse[i].dataKLine = klines.data[0]
     }
     let newMessage = ''
-    newMessage += `Cap nhat gia coin dang quan tam (1h) (${dayjs().format(
+    newMessage += `Cap nhat gia coin dang quan tam (1h) (${dayjs().add(7, 'h').format(
       'YYYY-MM-DD HH:mm:ss',
     )}):\n`
     for (let i = 0; i < interestedResponse.length; i++) {
@@ -135,7 +135,7 @@ class CommonController {
       interestedResponse[i].dataKLine = klines.data[0]
     }
     let newMessage = ''
-    newMessage += `Cap nhat gia coin dang quan tam (1h) (${dayjs().format(
+    newMessage += `Cap nhat gia coin dang quan tam (1h) (${dayjs().add(7, 'h').format(
       'YYYY-MM-DD HH:mm:ss',
     )}):\n`
     for (let i = 0; i < interestedResponse.length; i++) {
