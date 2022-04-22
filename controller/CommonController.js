@@ -102,7 +102,7 @@ class CommonController {
     let newMessage = ''
     newMessage += `Cap nhat gia coin ${message.text
       .replace(trainingKeys.COMMON_PRICE_SPEC, '')
-      .toUpperCase()} (1h) (${dayjs().format('YYYY-MM-DD HH:mm:ss')}):\n`
+      .toUpperCase()} (1h) (${dayjs().add(7, 'h').format('YYYY-MM-DD HH:mm:ss')}):\n`
     newMessage += `\xF0\x9F\x92\xB0 ${
       responsePrice.symbol
     }: \xF0\x9F\x92\xB2${responsePrice.lastPrice.slice(0, -3)}. ${
